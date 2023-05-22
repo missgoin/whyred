@@ -1,0 +1,41 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: okta10/docker:ubuntu
+    steps:
+      - run:
+          name: Compiling Kernel
+          command: |
+            wget https://raw.githubusercontent.com/missgoin/whyred/.circleci/build-start.sh
+            bash build-start.sh stable clang
+            cd kernel
+            
+            wget https://raw.githubusercontent.com/missgoin/whyred/.circleci/build-dtb.sh
+            
+            bash build-dtb.sh lavender clang qpnp
+            bash build-dtb.sh tulip clang qpnp
+            bash build-dtb.sh whyred clang qpnp
+            
+            git apply qti.patch
+            
+            bash build-dtb.sh lavender clang qti
+            bash build-dtb.sh tulip clang qti
+            bash build-dtb.sh whyred clang qti
+            
+            git restore .
+            
+            wget https://raw.githubusercontent.com/missgoin/whyred/.circleci/build.sh
+            
+            bash build.sh lavender newcam clang
+            bash build.sh lavender oldcam clang
+            bash build.sh tulip newcam clang
+            bash build.sh tulip oldcam clang
+            bash build.sh whyred newcam clang
+            bash build.sh whyred oldcam clang
+            
+            git restore .
+ 
+            wget https://raw.githubusercontent.com/missgoin/whyred/.circleci/build-final.sh
+            
+            bash build-final.sh clang
