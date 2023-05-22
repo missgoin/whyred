@@ -4,7 +4,7 @@
 
 # Clone kernel source
 if [[ "$*" =~ "stable" ]]; then
-    git clone --depth=1 https://github.com/missgoin/whyred.git -b caf-ksu kernel
+    git clone --depth=1 https://github.com/missgoin/whyred.git -b main kernel
     cd kernel || exit
 fi
 
