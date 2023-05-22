@@ -7,11 +7,11 @@ jobs:
       - run:
           name: Compiling Kernel
           command: |
-            wget https://raw.githubusercontent.com/missgoin/whyred/.circleci/build-start.sh
+            wget https://raw.githubusercontent.com/missgoin/whyred/main/.circleci/build-start.sh
             bash build-start.sh stable clang
             cd kernel
             
-            wget https://raw.githubusercontent.com/missgoin/whyred/.circleci/build-dtb.sh
+            wget https://raw.githubusercontent.com/missgoin/whyred/main/.circleci/build-dtb.sh
             
             bash build-dtb.sh lavender clang qpnp
             bash build-dtb.sh tulip clang qpnp
@@ -25,7 +25,7 @@ jobs:
             
             git restore .
             
-            wget https://raw.githubusercontent.com/missgoin/whyred/.circleci/build.sh
+            wget https://raw.githubusercontent.com/missgoin/whyred/main/.circleci/build.sh
             
             bash build.sh lavender newcam clang
             bash build.sh lavender oldcam clang
@@ -36,6 +36,6 @@ jobs:
             
             git restore .
  
-            wget https://raw.githubusercontent.com/missgoin/whyred/.circleci/build-final.sh
+            wget https://raw.githubusercontent.com/missgoin/whyred/main/.circleci/build-final.sh
             
             bash build-final.sh clang
